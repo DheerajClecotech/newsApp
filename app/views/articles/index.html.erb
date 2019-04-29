@@ -1,0 +1,63 @@
+<br>
+<%= link_to root_path, class: 'btn btn-default' do %>
+	<i class="fa fa-home fa-2x"> Today News</i>
+<% end %>
+<div class="row m-b-sm m-t-sm">
+  <div class="col-md-12">
+    <%= link_to "Disable" , articles_path(status: "disable") , class: "#{params[:status] == 'disable' ? 'active module-status' : 'module-status'}"%>
+    <%= link_to "Enable" , articles_path(status: "enable") , class: "#{params[:status] == 'enable' ? 'active module-status' : 'module-status'}"%>
+    <%= link_to "All Types" , articles_path(status: "all_types") , class: "#{params[:status] == 'all_types' ? 'active module-status' : 'module-status'}"%>
+  </div>
+</div>
+<hr>
+<div class="row" style="overflow: hidden;">
+	<% @articles.each do |article| %>
+		<div class="card" style="width: 15rem; float: left; margin: 20px;">
+			<%= image_tag article.urlToImage, class: "card-img-top" %>
+		  <div class="card-body">
+		    <h5 class="card-title"><%= article.try(:title) %></h5>
+		    <p class="card-text"><%= article.description ? article.description.truncate(100) : nil %></p>
+		    <p class="card-text"><%= article.content ? article.content.truncate(50) : nil %></p>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item"><b>Author:-</b><%= article.try(:author)%></li>
+		    <li class="list-group-item"><b>PublishedAt:-</b><%= article.publishedAt%></li>
+		  </ul>
+		  <div class="card-body">
+		    <div>Visit this Article:- <%= link_to "Click here", article.try(:url), target: '_blank', class: "card-link" %></div><br>
+		    Enable:- <%= check_box_tag :enable, {}, article.enable, class: "check_box", id: article.id %>
+		  </div>
+		</div>
+	<%end%>
+</div>
+<hr>
+<br>
+
+<script type="text/javascript">
+	$('.check_box').on('click', function(argument) {
+		var status = $(this).prop('checked')
+		var id = $(this).attr('id')
+		$(this).parents('.card').hide()
+		$.ajax({
+      url: '/articles/'+id,
+      type: 'PUT',
+      data: {status: status }
+		});
+	})
+</script>
+
+<style type="text/css">
+	.module-status {
+    padding: 20px;
+    color: #676a6c;
+    font-weight: bold;
+    float: right;
+    padding-bottom: 10px;
+	}
+	.module-status:hover {
+	    color: #676a6c;
+	}
+	.module-status.active {
+	    border-bottom: 2px solid #676a6c;
+	}
+</style>

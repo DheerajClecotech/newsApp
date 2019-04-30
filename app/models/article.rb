@@ -12,6 +12,6 @@ class Article < ApplicationRecord
 			Article.find_or_create_by(author: value["author"], content: value["content"], description: value["description"], publishedAt: value["publishedAt"], title:  value["title"], url: value["url"], urlToImage: value["urlToImage"], name: value["source"]["name"])
 		end if articles_count != articles.count
 
-		Article.where(publishedAt: Date.current)
+		Article.where(publishedAt: Date.current).order('enable desc')
 	end
 end

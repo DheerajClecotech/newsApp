@@ -13,7 +13,9 @@
 <div class="row" style="overflow: hidden;">
 	<% @articles.each do |article| %>
 		<div class="card" style="width: 15rem; float: left; margin: 20px;">
-			<%= image_tag article.urlToImage, class: "card-img-top" %>
+			<% if article.urlToImage %>
+				<%= image_tag article.urlToImage, class: "card-img-top" %>
+			<% end %>
 		  <div class="card-body">
 		    <h5 class="card-title"><%= article.try(:title) %></h5>
 		    <p class="card-text"><%= article.description ? article.description.truncate(100) : nil %></p>
@@ -21,7 +23,7 @@
 		  </div>
 		  <ul class="list-group list-group-flush">
 		    <li class="list-group-item"><b>Author:-</b><%= article.try(:author)%></li>
-		    <li class="list-group-item"><b>PublishedAt:-</b><%= article.publishedAt%></li>
+		    <li class="list-group-item"><b>PublishedAt:-</b><%= article.try(:publishedAt)%></li>
 		  </ul>
 		  <div class="card-body">
 		    <div>Visit this Article:- <%= link_to "Click here", article.try(:url), target: '_blank', class: "card-link" %></div><br>

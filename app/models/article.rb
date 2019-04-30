@@ -1,5 +1,6 @@
 class Article < ApplicationRecord
-	scope :enable, -> { where(enable: true, publishedAt: Date.current) }
+	scope :enable, -> { where(enable: true) }
+	scope :disable, -> { where(enable: false) }
 
 	def self.today_news
 		articles = Article.where(publishedAt: Date.current)
@@ -13,7 +14,7 @@ class Article < ApplicationRecord
 			articles.each_with_index do |value, index|
 				Article.find_or_create_by(author: value["author"], content: value["content"], description: value["description"], publishedAt: value["publishedAt"], title:  value["title"], url: value["url"], urlToImage: value["urlToImage"])
 			end
-			Article.where(publishedAt: Date.current)
+			Article.all
 		end
 	end
 end

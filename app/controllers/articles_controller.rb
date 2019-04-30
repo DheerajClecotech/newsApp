@@ -3,9 +3,9 @@ class ArticlesController < ApplicationController
 
 	def index
 		if params[:status] == 'disable'
-			@articles = Article.where(enable: false, publishedAt: Date.current)
+			@articles = Article.disable
 		elsif params[:status] == 'enable'
-			@articles = Article.where(enable: true, publishedAt: Date.current)
+			@articles = Article.enable
 		else
 			@articles = Article.today_news
 		end

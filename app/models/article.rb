@@ -6,6 +6,7 @@ class Article < ApplicationRecord
 		if articles.present?
 			articles
 		else
+			Article.destroy_all
 			response = HTTParty.get('https://newsapi.org/v2/top-headlines?country=in&category=politics&apiKey=4aeb8bafb1e843038934b02b635ac2b8')
 			data = JSON.parse(response.body)
 			articles = ActiveSupport::JSON.decode(data.to_json)["articles"]

@@ -6,7 +6,7 @@
   <div class="col-md-12">
     <%= link_to "Disable" , articles_path(status: "disable") , class: "#{params[:status] == 'disable' ? 'active module-status' : 'module-status'}"%>
     <%= link_to "Enable" , articles_path(status: "enable") , class: "#{params[:status] == 'enable' ? 'active module-status' : 'module-status'}"%>
-    <%= link_to "All Types" , articles_path(status: "all_types") , class: "#{params[:status] == 'all_types' ? 'active module-status' : 'module-status'}"%>
+    <%= link_to "All Types" , articles_path, class: "#{params[:status].present? ? 'module-status' : 'active module-status'}"%>
   </div>
 </div>
 <hr>
@@ -40,7 +40,7 @@
 	$('.check_box').on('click', function(argument) {
 		var status = $(this).prop('checked')
 		var id = $(this).attr('id')
-		$(this).parents('.card').hide()
+		// $(this).parents('.card').hide()
 		$.ajax({
       url: '/articles/'+id,
       type: 'PUT',

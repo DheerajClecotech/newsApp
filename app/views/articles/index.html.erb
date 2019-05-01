@@ -4,6 +4,7 @@
 <% end %>
 <div class="row m-b-sm m-t-sm">
   <div class="col-md-12">
+  	<span class="count-status" >Total Results: <%= @articles.count %></span>
     <%= link_to "Disable" , articles_path(status: "disable") , class: "#{params[:status] == 'disable' ? 'active module-status' : 'module-status'}"%>
     <%= link_to "Enable" , articles_path(status: "enable") , class: "#{params[:status] == 'enable' ? 'active module-status' : 'module-status'}"%>
     <%= link_to "All Types" , articles_path, class: "#{params[:status].present? ? 'module-status' : 'active module-status'}"%>
@@ -61,6 +62,14 @@
 	}
 	.module-status:hover {
 	    color: #676a6c;
+	}
+
+	.count-status{
+		padding: 20px;
+    color: #676a6c;
+    font-weight: bold;
+    float: left;
+    padding-bottom: 10px;
 	}
 	.module-status.active {
 	    border-bottom: 2px solid #676a6c;
